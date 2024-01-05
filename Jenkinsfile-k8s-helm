@@ -5,12 +5,13 @@ pipeline {
             AWS_SECRET_ACCESS_KEY=credentials('aws_access_key_value')
         }
         parameters {      
-            booleanParam( defaultValue: true, description: '',name: 'apply' )            
+            booleanParam( defaultValue: true, description: '',name: 'apply' )
+            booleanParam( defaultValue: true, description: '',name: 'destroy' )
         }
         stages {
             stage('Checkout') {
                 steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/selvanayaki678/terraform-aws.git']]])            
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/selvanayaki678/k8s-infra-helm-charts.git']]])            
                   }
             }
             stage ('checking current dir'){
@@ -21,7 +22,7 @@ pipeline {
             stage ('terraform init')
             {
                 steps {
-                    sh 'cd terraform-helm-nginx-ingress;terraform init;pwd;terraform plan '
+                    sh 'cd k8s-infra-helm-charts;terraform init;pwd;terraform plan '
             }
             } 
             stage ('Terraform apply')
@@ -30,10 +31,20 @@ pipeline {
                 expression {  return params.apply == true  }
                 }
                     steps {
-                    sh 'cd terraform-helm-nginx-ingress;terraform apply --auto-approve'
+                    sh 'cd k8s-infra-helm-charts;terraform apply --auto-approve'
                 }           
 
-            }           
+            } 
+            stage ('Terraform destroy')
+            {
+                when {
+                expression {  return params.destroy == true  }
+                }
+                    steps {
+                    sh 'cd k8s-infra-helm-charts;terraform destroy --auto-approve'
+                }           
+
+            } 
    
         }   
 }
