@@ -22,7 +22,7 @@ pipeline {
             stage ('terraform init')
             {
                 steps {
-                    sh 'cd k8s-infra-helm-charts;terraform init;pwd;terraform plan '
+                    sh 'terraform init;pwd;terraform plan '
             }
             } 
             stage ('Terraform apply')
@@ -31,7 +31,7 @@ pipeline {
                 expression {  return params.apply == true  }
                 }
                     steps {
-                    sh 'cd k8s-infra-helm-charts;terraform apply --auto-approve'
+                    sh 'terraform apply --auto-approve'
                 }           
 
             } 
@@ -41,7 +41,7 @@ pipeline {
                 expression {  return params.destroy == true  }
                 }
                     steps {
-                    sh 'cd k8s-infra-helm-charts;terraform destroy --auto-approve'
+                    sh 'terraform destroy --auto-approve'
                 }           
 
             } 
