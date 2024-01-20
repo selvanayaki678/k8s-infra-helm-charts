@@ -1,4 +1,4 @@
-# Jenkins Pipeline for Helm charts Deployment in EKS with Terraform
+# Helm charts Deployment in EKS with Terraform using Jenkins CICD
 
 This Jenkins pipeline automates the deployment of below resources into an Amazon EKS cluster using Terraform. The pipeline includes the deployment of the following resources:
 
@@ -22,6 +22,8 @@ This Jenkins pipeline automates the deployment of below resources into an Amazon
 ## Terraform Execution in Jenkins:
   - Jenkinsfile that includes the Terraform steps for deploying the Nginx Ingress Controller, Prometheus, and SonarQube to an Amazon EKS cluster. 
   - In Terraform, utilizing the Kubernetes and Helm providers facilitates the deployment of resources into an Amazon EKS cluster. The Helm and Kubernetes provider enables the deployment of the Nginx Ingress Controller, Prometheus, and SonarQube into the specified Kubernetes environment.
+    ![image](https://github.com/selvanayaki678/employee-portal-crud/assets/67256407/808cbf64-5a21-4c7e-9033-4454652fc9fb)
+
     
 1. **terraform init:**
    - Initialize the Terraform working directory.
